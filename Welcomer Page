@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Vault — Welcome</title>
+  <style>
+    :root{
+      --bg:#070b14;
+      --card:#0e1630;
+      --line:rgba(255,255,255,.10);
+      --muted:rgba(255,255,255,.72);
+      --text:#eef2ff;
+      --accent:#7c5cff;
+      --good:#23c483;
+      --shadow: 0 18px 65px rgba(0,0,0,.55);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 25% 12%, rgba(124,92,255,.22), transparent 60%),
+        radial-gradient(900px 600px at 85% 20%, rgba(35,196,131,.12), transparent 55%),
+        radial-gradient(900px 600px at 55% 95%, rgba(255,255,255,.06), transparent 55%),
+        var(--bg);
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+    .wrap{max-width:1100px;margin:0 auto;padding:22px 16px 80px}
+    .top{
+      display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;
+      margin-bottom:16px;
+    }
+    .brand{display:flex;gap:12px;align-items:center}
+    .logoBox{
+      width:56px;height:56px;border-radius:16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      display:grid;place-items:center;
+      box-shadow: 0 14px 40px rgba(0,0,0,.35);
+      overflow:hidden;
+    }
+    .logoBox img{width:100%;height:100%;object-fit:cover}
+    .title h1{margin:0;font-size:18px;letter-spacing:.3px}
+    .title p{margin:3px 0 0 0;color:var(--muted);font-size:13px}
+    .badgeRow{display:flex;gap:8px;flex-wrap:wrap}
+    .badge{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.02);
+      padding:7px 10px;border-radius:999px;
+      font-size:12px;color:var(--muted);
+    }
+
+    .hero{
+      margin-top:14px;
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+      border-radius:var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .heroInner{
+      padding:22px 18px;
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:14px;
+    }
+    @media(max-width:900px){ .heroInner{grid-template-columns:1fr} }
+
+    .bigTitle{
+      font-size:30px;line-height:1.05;margin:0 0 8px 0;
+      letter-spacing:.4px;
+    }
+    .sub{
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.55;
+      margin:0 0 14px 0;
+    }
+    .card{
+      border:1px solid var(--line);
+      border-radius:16px;
+      background: rgba(255,255,255,.02);
+      padding:14px 14px;
+    }
+    .card h3{margin:0 0 10px 0;font-size:14px}
+    .list{margin:0;padding-left:18px;color:var(--muted);line-height:1.55;font-size:13px}
+    .list li{margin:6px 0}
+
+    .cta{
+      display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px
+    }
+    button{
+      cursor:pointer;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color:var(--text);
+      padding:12px 14px;
+      font-weight:750;
+      letter-spacing:.2px;
+    }
+    button.primary{
+      background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(124,92,255,.55));
+      border-color: rgba(124,92,255,.65);
+      box-shadow: 0 14px 45px rgba(124,92,255,.20);
+    }
+    button.primary:hover{filter:brightness(1.05)}
+    button:active{transform:translateY(1px)}
+    .note{
+      font-size:12px;color:var(--muted);line-height:1.4;margin-top:10px
+    }
+
+    .rightCol{
+      display:grid;gap:12px;
+      align-content:start;
+    }
+
+    .questionBox{
+      border:1px solid rgba(124,92,255,.35);
+      background: linear-gradient(180deg, rgba(124,92,255,.16), rgba(255,255,255,.02));
+      border-radius:16px;
+      padding:14px 14px;
+    }
+    .questionBox .q{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+    }
+    .questionBox h2{
+      margin:0;font-size:16px;
+    }
+    .readyTag{
+      font-size:12px;color:rgba(255,255,255,.78);
+      border:1px solid rgba(255,255,255,.14);
+      padding:6px 10px;border-radius:999px;
+      background: rgba(255,255,255,.02);
+    }
+
+    .miniGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+    }
+    @media(max-width:520px){ .miniGrid{grid-template-columns:1fr} }
+    .mini{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.02);
+      border-radius:14px;
+      padding:12px 12px;
+    }
+    .mini .k{color:var(--muted);font-size:12px}
+    .mini .v{font-weight:850;margin-top:4px}
+
+    /* CASH GUN ANIMATION */
+    .cashStage{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:9999;
+      display:none;
+    }
+    .cashGun{
+      position:absolute;
+      right:-320px;
+      bottom:38px;
+      width:300px;
+      height:140px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.14);
+      background: linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+      box-shadow: 0 25px 90px rgba(0,0,0,.55);
+      transform: rotate(-6deg);
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      animation: gunIn .7s ease forwards;
+    }
+    .gunInner{
+      width:88%;
+      height:70%;
+      border-radius:16px;
+      background: linear-gradient(135deg, rgba(124,92,255,.75), rgba(124,92,255,.20));
+      border:1px solid rgba(124,92,255,.55);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 14px;
+      gap:10px;
+    }
+    .gunInner .label{
+      font-weight:900;
+      letter-spacing:.5px;
+      font-size:14px;
+    }
+    .barrel{
+      width:90px;height:28px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.25);
+      position:relative;
+      overflow:hidden;
+    }
+    .barrel::after{
+      content:"";
+      position:absolute;left:-40px;top:0;
+      width:40px;height:100%;
+      background: rgba(255,255,255,.18);
+      transform: skewX(-18deg);
+      animation: shine 1s linear infinite;
+    }
+    @keyframes shine { to { left: 120px; } }
+    @keyframes gunIn { to { right: 26px; } }
+
+    .bill{
+      position:absolute;
+      right:110px;
+      bottom:120px;
+      font-size:26px;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.45));
+      opacity:0;
+      transform: translate(0,0) rotate(0deg);
+      animation: fly 1.3s ease-out forwards;
+    }
+    @keyframes fly{
+      0%{opacity:0; transform: translate(0,0) rotate(0deg) scale(.9)}
+      10%{opacity:1}
+      100%{opacity:0; transform: translate(var(--x), var(--y)) rotate(var(--r)) scale(1.15)}
+    }
+
+    .toast{
+      position:fixed;
+      left:50%;
+      top:18px;
+      transform:translateX(-50%);
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.35);
+      color:rgba(255,255,255,.88);
+      font-size:12px;
+      z-index:99999;
+      display:none;
+      backdrop-filter: blur(10px);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">
+        <div class="logoBox">
+          <!-- REPLACE THIS SRC WITH YOUR LOGO URL -->
+          <img src="YOUR_LOGO_URL_HERE" alt="Vault Logo" />
+        </div>
+        <div class="title">
+          <h1>The Vault Access</h1>
+          <p>Private group • Real flips • Real execution • No fluff</p>
+        </div>
+      </div>
+      <div class="badgeRow">
+        <div class="badge">Reselling Framework</div>
+        <div class="badge">Liquidity First</div>
+        <div class="badge">Show Strategy</div>
+        <div class="badge">Deal Execution</div>
+      </div>
+    </div>
+
+    <section class="hero">
+      <div class="heroInner">
+        <div>
+          <h2 class="bigTitle">Welcome to the Vault.</h2>
+          <p class="sub">
+            You’re inside a private reselling system built for one goal:
+            <b>turning knowledge into cash</b> — fast, repeatable, and scalable.
+            This isn’t a “watch me flex” group. This is a <b>workroom</b>.
+          </p>
+
+          <div class="card">
+            <h3>What this private group gives you</h3>
+            <ul class="list">
+              <li><b>The 6 Pillars Framework</b> so you’re never guessing what to buy, when to sell, and how to scale.</li>
+              <li><b>Deal logic</b>: how to think in percentages (80–90%) and create profit on command.</li>
+              <li><b>Liquidity training</b>: learn which cards/products move fast and which ones trap your money.</li>
+              <li><b>Show & in-person execution</b>: vendor communication, negotiation, and same-day flips.</li>
+              <li><b>Tools</b>: plug-and-play calculators + templates to instantly know your profit after fees.</li>
+              <li><b>Community + support</b>: ask questions, post deals, and tighten your strategy with real feedback.</li>
+            </ul>
+          </div>
+
+          <div class="card" style="margin-top:12px">
+            <h3>Rules inside the Vault</h3>
+            <ul class="list">
+              <li><b>Privacy stays private.</b> No sharing screenshots, messages, or member info.</li>
+              <li><b>No hype-only posts.</b> Show numbers, show reasoning, show execution.</li>
+              <li><b>Respect the system.</b> No scamming, no shady behavior — we build long-term.</li>
+            </ul>
+          </div>
+
+          <div class="cta">
+            <button class="primary" id="goCalcBtn">Go to Profit Calculator</button>
+            <button id="copyRulesBtn">Copy Vault Rules</button>
+          </div>
+
+          <div class="note">
+            Pro tip: If you’re serious, start with the framework, then use the calculator on every deal.
+            The fastest people win because they move with <b>speed + discipline</b>.
+          </div>
+        </div>
+
+        <div class="rightCol">
+          <div class="questionBox">
+            <div class="q">
+              <h2>Are you ready to make money?</h2>
+              <div class="readyTag">Elite Mode</div>
+            </div>
+            <p class="sub" style="margin:10px 0 12px 0">
+              Hit <b>YES</b> to start the session. This is where excuses die and execution starts.
+            </p>
+            <div class="cta" style="margin:0">
+              <button class="primary" id="yesBtn">YES — Let’s Print 💸</button>
+              <button id="notYetBtn">Not yet</button>
+            </div>
+          </div>
+
+          <div class="miniGrid">
+            <div class="mini">
+              <div class="k">Focus</div>
+              <div class="v">Profit per hour</div>
+            </div>
+            <div class="mini">
+              <div class="k">Weapon</div>
+              <div class="v">Liquidity</div>
+            </div>
+            <div class="mini">
+              <div class="k">Rule</div>
+              <div class="v">No emotion</div>
+            </div>
+            <div class="mini">
+              <div class="k">Goal</div>
+              <div class="v">Repeatable flips</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>What to do first</h3>
+            <ul class="list">
+              <li>Read the Vault Rules + the 6 Pillars.</li>
+              <li>Run 3 practice deal scenarios through the calculator.</li>
+              <li>Post your first “deal plan” in chat: what you’re targeting + why.</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="toast" id="toast">Copied ✅</div>
+
+  <!-- CASH STAGE -->
+  <div class="cashStage" id="cashStage">
+    <div class="cashGun" id="cashGun">
+      <div class="gunInner">
+        <div class="label">CASH GUN</div>
+        <div class="barrel"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // OPTIONAL: Change this to your actual calculator page if different:
+    // Example: "./index.html" or "/"
+    const CALCULATOR_URL = "./index.html";
+
+    const toast = document.getElementById("toast");
+    const cashStage = document.getElementById("cashStage");
+
+    document.getElementById("goCalcBtn").addEventListener("click", () => {
+      window.location.href = CALCULATOR_URL;
+    });
+
+    document.getElementById("copyRulesBtn").addEventListener("click", async () => {
+      const rules = [
+        "Vault Rules:",
+        "1) Privacy stays private — no screenshots or sharing.",
+        "2) No hype-only posts — show reasoning and numbers.",
+        "3) No scamming/shady behavior — long-term reputation matters.",
+        "4) Respect members — help, learn, execute.",
+      ].join("\\n");
+      try{
+        await navigator.clipboard.writeText(rules);
+        showToast("Rules copied ✅");
+      }catch(e){
+        showToast("Copy blocked — screenshot instead");
+      }
+    });
+
+    document.getElementById("notYetBtn").addEventListener("click", () => {
+      showToast("Lock in. Come back when you're ready.");
+    });
+
+    document.getElementById("yesBtn").addEventListener("click", () => {
+      startCashGun();
+    });
+
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.style.display = "block";
+      setTimeout(()=> toast.style.display = "none", 1400);
+    }
+
+    function startCashGun(){
+      cashStage.style.display = "block";
+      showToast("LET’S PRINT 💸");
+
+      // blast cash for ~2.5 seconds
+      const start = Date.now();
+      const interval = setInterval(() => {
+        shootBill();
+        shootBill();
+      }, 90);
+
+      setTimeout(() => {
+        clearInterval(interval);
+        // hide the gun after a moment
+        setTimeout(()=> { cashStage.style.display = "none"; }, 900);
+      }, 2500);
+    }
+
+    function shootBill(){
+      const bill = document.createElement("div");
+      bill.className = "bill";
+      bill.textContent = "💵";
+
+      // Random spread
+      const x = -(120 + Math.random()*520) + "px";
+      const y = -(120 + Math.random()*520) + "px";
+      const r = (-40 + Math.random()*120) + "deg";
+
+      bill.style.setProperty("--x", x);
+      bill.style.setProperty("--y", y);
+      bill.style.setProperty("--r", r);
+
+      cashStage.appendChild(bill);
+
+      setTimeout(()=> bill.remove(), 1400);
+    }
+  </script>
+</body>
+</html>
